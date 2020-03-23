@@ -4,12 +4,12 @@ import java.sql.SQLException;
 
 public class ConnectionUtil {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/ProjectBD?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String URL = "jdbc:mysql://localhost:3306/projectbd?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
 
     public static Connection getConnection() throws ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
 
         try {
             return DriverManager.getConnection(URL, USER, PASSWORD);
