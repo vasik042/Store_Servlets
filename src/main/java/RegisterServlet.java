@@ -1,5 +1,8 @@
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Optional;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,12 +21,13 @@ public class RegisterServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserDao userDao = new UserDao();
         String firstName = request.getParameter("firstName");
         String secondName = request.getParameter("secondName");
         String email = request.getParameter("email");
         String password = request.getParameter("password1");
         try {
-            UserDao.insert(firstName, secondName, email, password);
+            userDao.insert(firstName, secondName, email, password);
         } catch (SQLException e) {
             e.printStackTrace();
         }

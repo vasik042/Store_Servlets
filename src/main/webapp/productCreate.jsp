@@ -37,7 +37,7 @@
 <body>
     <jsp:include page="header.jsp"></jsp:include>
      <div class="main">
-            <form action="" style="display: flex; flex-direction: column; ">
+            <form action="CreateProduct" method="post" style="display: flex; flex-direction: column; ">
                 <label for="">
                     <p>Product name</p>
                     <input type="text" name="product_name" id="product_name">

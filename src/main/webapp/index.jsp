@@ -24,7 +24,7 @@
     <!-- Remind Passowrd -->
     <div id="formFooter">
      <form action="register" method="get">
-      <a class="underlineHover">Make new acount</a>
+      <a class="underlineHover" href="${pageContext.request.contextPath}/register.jsp">Make new acount</a>
      </form>
     </div>
 

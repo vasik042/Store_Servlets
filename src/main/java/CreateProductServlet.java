@@ -26,12 +26,14 @@ public class CreateProductServlet extends HttpServlet {
             return;
         }
 
+        ProductDao productDao = new ProductDao();
+
         try {
-            ProductDao.insert(product_name, product_description, Double.parseDouble(price));
+            productDao.insert(product_name, product_description, Double.parseDouble(price));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        response.setStatus(HttpServletResponse.SC_OK);
+        request.getRequestDispatcher("cabinet.jsp").forward(request, response);
     }
 
     private Optional<String> getErrorMessage(String price) {

@@ -30,7 +30,6 @@ class UserDao {
         preparedStatement.setString(2, secondName);
         preparedStatement.setString(3, email);
         preparedStatement.setString(4, password);
-
         preparedStatement.executeUpdate();
         log.info("Created new user");
     }

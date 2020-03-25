@@ -15,16 +15,19 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserDao userDao = new UserDao();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         User user = null;
         try {
-            user = UserDao.getUser(email, password);
+            user = userDao.getUser(email, password);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         if (user != null) {
             request.getRequestDispatcher("cabinet.jsp").forward(request, response);
+        }else   {
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 }
