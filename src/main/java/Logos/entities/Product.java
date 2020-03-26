@@ -1,3 +1,5 @@
+package Logos.entities;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

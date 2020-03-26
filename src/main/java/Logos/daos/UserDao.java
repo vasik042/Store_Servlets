@@ -1,3 +1,7 @@
+package Logos.daos;
+
+import Logos.ConnectionUtil;
+import Logos.entities.User;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -5,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class UserDao {
+public class UserDao {
     private static final String SELECT_FROM_USER = "SELECT * FROM user";
     private static final String INSERT_INTO_USER =
             "INSERT INTO user(first_name, second_name, email, password) values(?, ?, ?, ?)";
@@ -51,7 +55,7 @@ class UserDao {
         User user = null;
         List<User> users = getAll();
         for (User u: users) {
-            if (u.email.equals(email) & u.password.equals(password)){
+            if (u.getEmail().equals(email) & u.getPassword().equals(password)){
                 user = u;
             }
         };

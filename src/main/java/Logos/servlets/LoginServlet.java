@@ -1,3 +1,8 @@
+package Logos.servlets;
+
+import Logos.daos.UserDao;
+import Logos.entities.User;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.ServletException;

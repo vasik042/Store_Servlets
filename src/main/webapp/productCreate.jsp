@@ -59,6 +59,6 @@
             </form>
         </div>
     <jsp:include page="footer.jsp"></jsp:include>
-    <script src="productCreate.js"></script>
+    <script src="js/productCreate.js"></script>
 </body>
 </html>

@@ -1,3 +1,7 @@
+package Logos.daos;
+
+import Logos.ConnectionUtil;
+import Logos.entities.Product;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -5,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class ProductDao {
+public class ProductDao {
     private static final String SELECT_FROM_PRODUCT = "SELECT * FROM product";
     private static final String INSERT_INTO_PRODUCT=
             "INSERT INTO product (product_name, product_description, price) VALUES (?, ?, ?)";
@@ -51,7 +55,7 @@ class ProductDao {
         Product product = null;
         List<Product> products = getAll();
         for (Product p: products) {
-            if (p.product_name.equals(product_name)){
+            if (p.getProduct_name().equals(product_name)){
                 product = p;
             }
         };
