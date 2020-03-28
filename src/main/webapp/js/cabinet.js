@@ -1,7 +1,7 @@
-$.get("product")
-    .done(function (products) {
+$.get("api/products")
+    .done(function (products1) {
         var cardsContent = "";
-        jQuery.each(products, function (i, product) {
+        jQuery.each(products1, function (i, product) {
             cardsContent +=
                 "<div class=\"card\">" +
                 "<div class=\"card-body\">" +
@@ -13,8 +13,7 @@ $.get("product")
                 "</div>"
         });
         $('.product-card').html(cardsContent);
-
     })
     .fail(function () {
         alert("Can't get products");
-    });
+        });

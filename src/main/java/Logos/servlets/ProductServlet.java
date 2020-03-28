@@ -2,9 +2,7 @@ package Logos.servlets;
 
 import Logos.daos.ProductDao;
 import Logos.entities.Product;
-import com.google.gson.Gson;
 
-import javax.management.openmbean.CompositeData;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,64 +10,42 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 
-@WebServlet("/product")
+
+@WebServlet("/products")
 public class ProductServlet extends HttpServlet {
 
     private ProductDao productDao = new ProductDao();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws  IOException {
-        List<Product> products = null;
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String productId = request.getParameter("id");
+        Product product = null;
         try {
-            products = productDao.getAll();
+            product = productDao.getProductByID(Integer.parseInt(productId));
+            request.setAttribute("productName", product.getProduct_name());
+            request.setAttribute("productD", product.getProduct_description());
+            request.setAttribute("productP", product.getPrice());
+            request.setAttribute("productId", product.getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String json = new Gson().toJson(products);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(json);
+
+        request.getRequestDispatcher("singleProduct.jsp").forward(request, response);
     }
 
+    // to update resource (product)
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String product_name = request.getParameter("product_name");
-        String product_description = request.getParameter("description");
-        String price = (request.getParameter("price"));
-
-        Optional<String> errorMessage = getErrorMessage(price);
-        if (errorMessage.isPresent()) {
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write(errorMessage.get());
-
-            return;
-        }
-
-
-
-        try {
-            productDao.insert(product_name, product_description, Double.parseDouble(price));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        request.getRequestDispatcher("cabinet.jsp").forward(request, response);
+        super.doPut(req, resp);
     }
 
-    private Optional<String> getErrorMessage(String price) {
-        if (price.isEmpty()) {
-            return Optional.of("Price can't be empty");
-        }
-        try {
-            double parsedPrice = Double.parseDouble(price);
-            return parsedPrice > 0 ? Optional.empty() : Optional.of("Price can't less then zero");
-        } catch (NumberFormatException e) {
-            return Optional.of("Price should be numeric");
-        }
+    // to delete resource (product)
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        super.doDelete(req, resp);
     }
+
 }
-

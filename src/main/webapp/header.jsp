@@ -9,23 +9,27 @@
 </head>
 <body>
 <div class="navbar">
-  <div class="navbar-inner">
+  <div class="navbar-inner" style="width: 100%">
     <div class="container">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="#">WebApp</a>
+      <a class="brand" href="#">WebShop</a>
       <div class="nav-collapse">
         <ul class="nav">
-          <li class=""><a href="#">Home</a></li>
+          <li class=""><a href="${pageContext.request.contextPath}/cabinet.jsp">Home</a></li>
             <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <b class="caret"></b></a>
             <ul class="dropdown-menu">
+              <li><a href="${pageContext.request.contextPath}/myBacket.jsp">My backet</a></li>
               <li><a href="${pageContext.request.contextPath}/productCreate.jsp">Create product</a></li>
             </ul>
           </li>
+          <form action="logOut" method="get" class="nav pull-right">
+              <input id="btn" type="submit" value="Log out">
+          </form>
         </ul>    
 <!--
             <ul class="nav pull-right">

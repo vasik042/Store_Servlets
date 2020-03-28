@@ -51,11 +51,22 @@ public class ProductDao {
     }
 
     public static Product getProduct(String product_name) throws SQLException {
-        log.info("Try to get product");
+        log.info("Try to get product by name");
         Product product = null;
         List<Product> products = getAll();
         for (Product p: products) {
             if (p.getProduct_name().equals(product_name)){
+                product = p;
+            }
+        };
+        return product;
+    }
+    public static Product getProductByID(int id) throws SQLException {
+        log.info("Try to get product by id");
+        Product product = null;
+        List<Product> products = getAll();
+        for (Product p: products) {
+            if (p.getId() == id){
                 product = p;
             }
         };
