@@ -13,7 +13,7 @@ public class Product {
         this.price = price;
         this.product_name = product_name;
     }
-    Product(String product_description, String product_name, double price){
+    public Product(String product_description, String product_name, double price){
         this.product_description = product_description;
         this.price = price;
         this.product_name = product_name;

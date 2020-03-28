@@ -1,7 +1,10 @@
 package Logos.servlets;
 
 import Logos.daos.ProductDao;
+import Logos.entities.Product;
+import com.google.gson.Gson;
 
+import javax.management.openmbean.CompositeData;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,10 +12,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
-@WebServlet("/CreateProduct")
-public class CreateProductServlet extends HttpServlet {
+@WebServlet("/product")
+public class ProductServlet extends HttpServlet {
+
+    private ProductDao productDao = new ProductDao();
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws  IOException {
+        List<Product> products = null;
+        try {
+            products = productDao.getAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String json = new Gson().toJson(products);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+    }
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,7 +50,7 @@ public class CreateProductServlet extends HttpServlet {
             return;
         }
 
-        ProductDao productDao = new ProductDao();
+
 
         try {
             productDao.insert(product_name, product_description, Double.parseDouble(price));
@@ -50,13 +70,6 @@ public class CreateProductServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             return Optional.of("Price should be numeric");
         }
-    }
-
-    // to get resource (product)
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
     }
 }
 
